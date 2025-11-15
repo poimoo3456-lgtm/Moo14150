@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ฝากเงิน - พ่อครู</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #FFD700;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            text-align: center;
+        }
+        h2 {
+            color: #FFD700;
+        }
+        select, input[type=number] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #FFD700;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #e6c200;
+        }
+        .balance {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        .history {
+            margin-top: 20px;
+            text-align: left;
+            max-height: 150px;
+            overflow-y: auto;
+            background-color: #111;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>ฝากเงิน</h2>
+    <div class="balance">ยอดเงินคงเหลือ: <span id="balance">0</span> บาท</div>
+
+    <select id="account">
+        <option value="TrueMoney 063765934 (ณัฐวัตร ชูปรารมย์)">TrueMoney 063-765-934 (ณัฐวัตร ชูปรารมย์)</option>
+        <option value="กรุงเทพ 977-0-270164 / พร้อมเพย์ 063-769-5934 (ณัฐวัตร ชูปรารมย์)">กรุงเทพ 977-0-270164 / พร้อมเพย์ 063-769-5934 (ณัฐวัตร ชูปรารมย์)</option>
+        <option value="กรุงไทย 1220586870 / พร้อมเพย์ 115-9900-534708 (ณัฐวัตร ชูปรารมย์)">กรุงไทย 1220586870 / พร้อมเพย์ 115-9900-534708 (ณัฐวัตร ชูปรารมย์)</option>
+    </select>
+
+    <input type="number" id="deposit-amount" placeholder="จำนวนเงินฝาก">
+    <button onclick="deposit()">ฝากเงิน</button>
+
+    <div class="history" id="history">
+        <strong>ประวัติการฝาก:</strong>
+        <ul id="history-list"></ul>
+    </div>
+</div>
+
+<script>
+    let balance = 0;
+
+    function deposit() {
+        const amount = parseFloat(document.getElementById('deposit-amount').value);
+        const account = document.getElementById('account').value;
+
+        if(amount > 0) {
+            balance += amount;
+            document.getElementById('balance').innerText = balance;
+            document.getElementById('deposit-amount').value = '';
+
+            const historyList = document.getElementById('history-list');
+            const li = document.createElement('li');
+            li.textContent = `ฝาก ${amount} บาท เข้า ${account}`;
+            historyList.prepend(li);
+        } else {
+            alert('กรุณากรอกจำนวนเงินที่ถูกต้อง');
+        }
+    }
+</script>
+
+</body>
+</html>
